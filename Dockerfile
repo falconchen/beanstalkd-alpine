@@ -1,4 +1,4 @@
-FROM alpine
+FROM gosu/alpine
 MAINTAINER Falcon Chen <me@cellmean.com>
 
 USER root
@@ -8,7 +8,6 @@ RUN addgroup -S beanstalkd && adduser -S -G beanstalkd beanstalkd
 RUN apk add --no-cache 'su-exec>=0.2'
 
 RUN apk --update add --virtual build-dependencies \
-  gosu \
   gcc \
   make \
   musl-dev \
