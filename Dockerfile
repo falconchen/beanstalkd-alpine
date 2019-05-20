@@ -1,14 +1,12 @@
-FROM alpine
-MAINTAINER Falcon Chen <me@cellmean.com>
+FROM alpine:3.4
+MAINTAINER Tuna Aras <iletisim@uretgec.com>
 
-USER root
 ENV VERSION_BEANSTALKD="1.10"
 
 RUN addgroup -S beanstalkd && adduser -S -G beanstalkd beanstalkd
 RUN apk add --no-cache 'su-exec>=0.2'
 
 RUN apk --update add --virtual build-dependencies \
-  gosu \
   gcc \
   make \
   musl-dev \
@@ -26,5 +24,5 @@ RUN mkdir /data && chown beanstalkd:beanstalkd /data
 VOLUME ["/data"]
 EXPOSE 11300
 
-ENTRYPOINT ["gosu","beanstalkd", "-p", "11300", "-u", "beanstalkd"]
+ENTRYPOINT ["beanstalkd", "-p", "11300", "-u", "beanstalkd"]
 CMD ["-b", "/data"]
